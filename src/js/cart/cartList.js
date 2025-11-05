@@ -1,5 +1,7 @@
 import { showModal } from "../modal/modal.js";
 import formatPrice from "../utils/formatPrice.js";
+import getSelectedOrders from "../utils/getSelectedOrders.js";
+import getTotalPrice from "../utils/getTotalPrice.js";
 import { initCartItemEventListener, renderCartItem } from "./cartItem.js";
 
 const cartQuantityLabel = document.querySelector(".cart-quantity");
@@ -39,15 +41,13 @@ function updateCartCount(data) {
 
 function updateTotalPrice(data) {
   const totalPriceSpan = cartTotalPriceLabel.querySelector("span");
-  const totalPrice = data
-    .map((obj) => obj.price * obj.count)
-    .reduce((acc, v) => acc + v, 0);
+  const totalPrice = getTotalPrice(data);
 
   totalPriceSpan.textContent = formatPrice(totalPrice);
 }
 
 export function renderCartList(listData) {
-  const cartData = listData.filter((obj) => obj.count > 0);
+  const cartData = getSelectedOrders(listData);
 
   cartList.innerHTML = "";
   updateCartCount(cartData);
