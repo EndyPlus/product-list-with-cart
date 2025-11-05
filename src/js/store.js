@@ -1,3 +1,4 @@
+import { renderCartList } from "./cart/cartList.js";
 import { renderList } from "./itemsList/itemsList.js";
 import { updateItem } from "./itemsList/listItem.js";
 
@@ -16,6 +17,7 @@ export async function initItemsList() {
     store.listData = data.map((obj, i) => ({ ...obj, id: i, count: 0 }));
 
     renderList(store.listData);
+    renderCartList(store.listData);
   } catch (err) {
     console.log(err);
   }
@@ -31,4 +33,10 @@ export function updateStoreItem(id, newData) {
   Object.assign(currObj, newData);
 
   updateItem(currObj);
+  renderCartList(store.listData);
+}
+
+export function updateCartList() {
+  renderCartList(store.listData);
+  renderList(store.listData);
 }
