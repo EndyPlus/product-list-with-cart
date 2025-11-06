@@ -2,6 +2,7 @@ import { renderCartList } from "./cart/cartList.js";
 import { renderList } from "./itemsList/itemsList.js";
 import { updateItem } from "./itemsList/listItem.js";
 import { renderConfirmOrderList } from "./modal/confirmOrder.js";
+import { getLocalData, setLocalData } from "./utils/localStorage.js";
 
 export const store = {
   listData: [],
@@ -15,11 +16,19 @@ export async function initItemsList() {
 
     const data = await res.json();
 
-    store.listData = data.map((obj, i) => ({ ...obj, id: i, count: 0 }));
+    const localStorageData = getLocalData();
+
+    if (localStorageData !== null) {
+      store.listData = localStorageData;
+    } else {
+      store.listData = data.map((obj, i) => ({ ...obj, id: i, count: 0 }));
+      setLocalData(store.listData);
+    }
 
     renderList(store.listData);
     renderCartList(store.listData);
     renderConfirmOrderList(store.listData);
+    setLocalData(store.listData);
   } catch (err) {
     console.log(err);
   }
@@ -37,12 +46,14 @@ export function updateStoreItem(id, newData) {
   updateItem(currObj);
   renderCartList(store.listData);
   renderConfirmOrderList(store.listData);
+  setLocalData(store.listData);
 }
 
 export function updateCartList() {
   renderCartList(store.listData);
   renderList(store.listData);
   renderConfirmOrderList(store.listData);
+  setLocalData(store.listData);
 }
 
 export function resetState() {
@@ -50,4 +61,5 @@ export function resetState() {
   renderCartList(store.listData);
   renderList(store.listData);
   renderConfirmOrderList(store.listData);
+  setLocalData(store.listData);
 }

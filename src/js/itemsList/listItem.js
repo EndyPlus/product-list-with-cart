@@ -1,6 +1,6 @@
 import { updateStoreItem } from "../store.js";
-import formatImgLink from "../utils/formatImgLink.js";
 import formatPrice from "../utils/formatPrice.js";
+import getImage from "../utils/getImage.js";
 
 export function updateItem(data) {
   const listItem = document.getElementById(`item-${data.id}`);
@@ -61,7 +61,7 @@ export function renderItem(data) {
 
   const isActiveQuantityBtns = count > 0;
 
-  const newImgLink = formatImgLink(image.desktop);
+  const newImgLink = getImage(image);
 
   const newPrice = formatPrice(price);
 

@@ -32,7 +32,7 @@ function renderConfirmOrderItem(data) {
                 alt="${name} thumbnail"
               />
               <div class="order-item-info">
-                <h4>Classic Tiramisu</h4>
+                <h4>${name}</h4>
                 <div class="order-item-stats">
                   <span class="order-item-quantity">${count}x</span>
                   <span class="order-item-single">@ ${formatPrice(price)}</span>
