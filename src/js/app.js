@@ -1,7 +1,7 @@
-import { initItemsList } from "./store.js";
+import { initDataItemsList } from "./store.js";
 
 async function initApp() {
-  await initItemsList();
+  await initDataItemsList();
 }
 
 initApp();

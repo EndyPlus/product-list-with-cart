@@ -1,11 +1,10 @@
-import { initItemListeners, renderItem } from "./listItem.js";
+import { initItemListeners, initRenderItem } from "./listItem.js";
 
 const itemsList = document.getElementById("items-list");
 
-export function renderList(listData) {
-  const html = listData.map((obj) => renderItem(obj)).join("");
+export function initRenderList(listData) {
+  const html = listData.map((obj) => initRenderItem(obj)).join("");
 
-  itemsList.innerHTML = "";
   itemsList.insertAdjacentHTML("afterbegin", html);
   listData.forEach((obj) => initItemListeners(obj));
 }

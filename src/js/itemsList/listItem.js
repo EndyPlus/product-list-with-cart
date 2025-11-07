@@ -2,42 +2,62 @@ import { updateStoreItem } from "../store.js";
 import formatPrice from "../utils/formatPrice.js";
 import getImage from "../utils/getImage.js";
 
-export function updateItem(data) {
-  const listItem = document.getElementById(`item-${data.id}`);
-  listItem.innerHTML = renderItem(data);
-  initItemListeners(data);
-}
-
-function controlQuantity(data, operation) {
-  operation === "add" ? (data.count += 1) : (data.count -= 1);
-
-  updateStoreItem(data.id, data);
-}
-
-export function initItemListeners(data) {
-  const { id } = data;
-
+function getListItemElements(id) {
   const listItem = document.getElementById(`item-${id}`);
   const addToCartBtn = listItem.querySelector(`#item-${id}-btn`);
   const activeBtnsContainer = listItem.querySelector(
     `#item-${id}-btns-container`
   );
-  const countControlContainer = listItem.querySelector(
-    `#item-${id}-btns-container`
-  );
-
-  const decrementQuantityBtn = countControlContainer.querySelector(
+  const decrementQuantityBtn = activeBtnsContainer.querySelector(
     `#item-${id}-decrement-btn`
   );
-  const incrementQuantityBtn = countControlContainer.querySelector(
+  const incrementQuantityBtn = activeBtnsContainer.querySelector(
     `#item-${id}-increment-btn`
   );
+  const countLabel = activeBtnsContainer.querySelector(`#item-${id}-count`);
 
-  addToCartBtn.addEventListener("click", () => {
+  return {
+    listItem,
+    addToCartBtn,
+    activeBtnsContainer,
+    decrementQuantityBtn,
+    incrementQuantityBtn,
+    countLabel,
+  };
+}
+
+export function updateItemUI(data) {
+  const { id, count } = data;
+
+  const { addToCartBtn, activeBtnsContainer, countLabel } =
+    getListItemElements(id);
+
+  if (count > 0) {
     addToCartBtn.classList.add("hidden");
     activeBtnsContainer.classList.remove("hidden");
+  } else {
+    addToCartBtn.classList.remove("hidden");
+    activeBtnsContainer.classList.add("hidden");
+  }
+
+  countLabel.textContent = count;
+}
+
+function controlQuantity(data, operation) {
+  operation === "add" ? (data.count += 1) : (data.count -= 1);
+
+  updateStoreItem(data);
+}
+
+export function initItemListeners(data) {
+  const { id } = data;
+
+  const { addToCartBtn, decrementQuantityBtn, incrementQuantityBtn } =
+    getListItemElements(id);
+
+  addToCartBtn.addEventListener("click", () => {
     data.count = 1;
-    updateStoreItem(id, data);
+    updateStoreItem(data);
   });
 
   [decrementQuantityBtn, incrementQuantityBtn].forEach((el) => {
@@ -56,7 +76,7 @@ export function initItemListeners(data) {
   });
 }
 
-export function renderItem(data) {
+export function initRenderItem(data) {
   const { id, count, image, name, category, price } = data;
 
   const isActiveQuantityBtns = count > 0;

@@ -215,12 +215,15 @@ ASIDE
   color: var(--rose-500);
 }
 
+.cart-content-container {
+  margin-top: 1rem;
+}
+
 .cart-list {
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
 
-  margin-top: 1rem;
   margin-bottom: 2rem;
 }
 .cart-order-item {

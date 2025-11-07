@@ -1,12 +1,22 @@
-import { updateCartList } from "../store.js";
+import { updateStoreItem } from "../store.js";
 import formatPrice from "../utils/formatPrice.js";
+
+export function updateCartItemUI(data) {
+  const { id, price, count } = data;
+  const listItem = document.getElementById(`cart-item-${id}`);
+  const itemQuantity = listItem.querySelector(".order-item-quantity");
+  const itemTotalCost = listItem.querySelector(".order-item-total");
+
+  itemQuantity.textContent = count;
+  itemTotalCost.textContent = formatPrice(price * count);
+}
 
 export function initCartItemEventListener(data) {
   const removeBtn = document.getElementById(`cart-item-${data.id}-remove-btn`);
 
   removeBtn.addEventListener("click", () => {
     data.count = 0;
-    updateCartList();
+    updateStoreItem(data);
   });
 }
 

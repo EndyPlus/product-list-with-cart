@@ -2,7 +2,7 @@ import formatPrice from "../utils/formatPrice.js";
 import formatImgLink from "../utils/formatImgLink.js";
 import getSelectedOrders from "../utils/getSelectedOrders.js";
 import getTotalPrice from "../utils/getTotalPrice.js";
-import { resetState } from "../store.js";
+// import { resetState } from "../store.js";
 import { hideModal } from "./modal.js";
 
 const confirmOrderList = document.querySelector(".confirm-order-list");
@@ -10,7 +10,7 @@ const orderTotalPrice = document.getElementById("order-total-price");
 const newOrderBtn = document.getElementById("new-order-btn");
 
 newOrderBtn.addEventListener("click", () => {
-  resetState();
+  // resetState();
   hideModal();
 });
 
@@ -45,7 +45,7 @@ function renderConfirmOrderItem(data) {
     `;
 }
 
-export function renderConfirmOrderList(listData) {
+export function initRenderConfirmOrderList(listData) {
   const ordersData = getSelectedOrders(listData);
 
   confirmOrderList.innerHTML = "";
