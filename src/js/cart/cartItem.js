@@ -1,5 +1,6 @@
 import { updateStoreItem } from "../store.js";
 import formatPrice from "../utils/formatPrice.js";
+import getIcon from "../utils/getIcon.js";
 
 export function updateCartItemUI(data) {
   const { id, price, count } = data;
@@ -36,10 +37,7 @@ export function renderCartItem(data) {
             </div>
             </div>
             <button class="order-item-cta" id="cart-item-${id}-remove-btn">
-            <img
-                src="./src/assets/icons/icon-remove-item.svg"
-                 alt="remove item icon"
-            />
+            ${getIcon("remove")}
             </button>
         </li>
     `;

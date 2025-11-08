@@ -1,9 +1,11 @@
 import { updateStoreItem } from "../store.js";
 import formatPrice from "../utils/formatPrice.js";
+import getIcon from "../utils/getIcon.js";
 import getImage from "../utils/getImage.js";
 
 function getListItemElements(id) {
   const listItem = document.getElementById(`item-${id}`);
+  const listItemImage = listItem.querySelector(".list-item-image");
   const addToCartBtn = listItem.querySelector(`#item-${id}-btn`);
   const activeBtnsContainer = listItem.querySelector(
     `#item-${id}-btns-container`
@@ -18,6 +20,7 @@ function getListItemElements(id) {
 
   return {
     listItem,
+    listItemImage,
     addToCartBtn,
     activeBtnsContainer,
     decrementQuantityBtn,
@@ -29,15 +32,17 @@ function getListItemElements(id) {
 export function updateItemUI(data) {
   const { id, count } = data;
 
-  const { addToCartBtn, activeBtnsContainer, countLabel } =
+  const { listItemImage, addToCartBtn, activeBtnsContainer, countLabel } =
     getListItemElements(id);
 
   if (count > 0) {
     addToCartBtn.classList.add("hidden");
     activeBtnsContainer.classList.remove("hidden");
+    listItemImage.classList.add("item-image-selected");
   } else {
     addToCartBtn.classList.remove("hidden");
     activeBtnsContainer.classList.add("hidden");
+    listItemImage.classList.remove("item-image-selected");
   }
 
   countLabel.textContent = count;
@@ -91,7 +96,9 @@ export function initRenderItem(data) {
                 <img
                   src="${newImgLink}"
                   alt="${name} image"
-                  class="list-item-image"
+                  class="list-item-image ${
+                    isActiveQuantityBtns ? "item-image-selected" : ""
+                  }"
                 />
 
                 <button class="list-item-cta-passive ${
@@ -107,17 +114,11 @@ export function initRenderItem(data) {
                   isActiveQuantityBtns ? "" : "hidden"
                 }" id="item-${id}-btns-container">
                   <button id="item-${id}-decrement-btn">
-                    <img
-                      src="./src/assets/icons/icon-decrement-quantity.svg"
-                      alt="icon decrement quantity"
-                    />
+                  ${getIcon("minus")}
                   </button>
                   <p id='item-${id}-count'>${count}</p>
                   <button id="item-${id}-increment-btn">
-                    <img
-                      src="./src/assets/icons/icon-increment-quantity.svg"
-                      alt="icon increment quantity"
-                    />
+                  ${getIcon("add")}
                   </button>
                 </div> 
               </div>
