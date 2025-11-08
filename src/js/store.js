@@ -1,6 +1,9 @@
 import { initRenderCart, updateCartUI } from "./cart/cartList.js";
 import { initRenderList } from "./itemsList/itemsList.js";
-import { initRenderConfirmOrderList } from "./modal/confirmOrder.js";
+import {
+  initRenderConfirmOrderList,
+  updateConfirmOrderListUI,
+} from "./modal/confirmOrderList.js";
 import { getLocalData, setLocalData } from "./utils/localStorage.js";
 import { updateItemUI } from "./itemsList/listItem.js";
 
@@ -17,7 +20,6 @@ export async function initDataItemsList() {
     const data = await res.json();
 
     const localStorageData = getLocalData();
-    // const localStorageData = null;
 
     if (localStorageData !== null) {
       store.listData = localStorageData;
@@ -50,10 +52,25 @@ export function updateStoreItem(newData) {
   updateItemUI(currObj);
 
   updateStoreCartList(store.listData);
+  updateStoreConfirmOrderList(store.listData);
 
   setLocalData(store.listData);
 }
 
 export function updateStoreCartList(newListData) {
   updateCartUI(newListData);
+}
+
+export function updateStoreConfirmOrderList(newListData) {
+  updateConfirmOrderListUI(newListData);
+}
+
+export function resetState() {
+  store.listData.forEach((obj) => {
+    obj.count = 0;
+    updateItemUI(obj);
+  });
+  updateStoreCartList(store.listData);
+  updateStoreConfirmOrderList(store.listData);
+  setLocalData(store.listData);
 }
