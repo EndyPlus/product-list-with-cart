@@ -52,6 +52,11 @@ function controlQuantity(data, operation) {
   operation === "add" ? (data.count += 1) : (data.count -= 1);
 
   updateStoreItem(data);
+
+  if (data.count === 0) {
+    const { addToCartBtn } = getListItemElements(data.id);
+    addToCartBtn.focus();
+  }
 }
 
 export function initItemListeners(data) {
@@ -63,6 +68,7 @@ export function initItemListeners(data) {
   addToCartBtn.addEventListener("click", () => {
     data.count = 1;
     updateStoreItem(data);
+    incrementQuantityBtn.focus();
   });
 
   [decrementQuantityBtn, incrementQuantityBtn].forEach((el) => {
@@ -104,10 +110,7 @@ export function initRenderItem(data) {
                 <button class="list-item-cta-passive ${
                   isActiveQuantityBtns ? "hidden" : ""
                 }" id="item-${id}-btn">
-                  <img
-                    src="./src/assets/icons/icon-add-to-cart.svg"
-                    alt="add to cart icon"
-                  />
+                  ${getIcon("add-to-cart")}
                   <p>Add to Cart</p>
                 </button>
                 <div class="list-item-cta-active ${

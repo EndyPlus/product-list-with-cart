@@ -72,6 +72,10 @@ svg {
   z-index: 2;
 }
 
+.modal-backdrop:focus-visible {
+  background-color: var(--main-green);
+}
+
 .app {
   display: flex;
   justify-content: center;
@@ -152,8 +156,22 @@ MAIN
   transition: var(--project-transition);
 }
 
+.list-item-cta-passive:focus-visible {
+  background-color: var(--main-green);
+  border-color: var(--main-green);
+}
+
+.list-item-cta-passive:focus-visible svg path {
+  fill: var(--rose-50);
+}
+
 .list-item-cta-passive:active {
+  background-color: var(--rose-50);
   border-color: var(--main-red);
+}
+
+.list-item-cta-passive:active svg path {
+  fill: var(--main-red);
 }
 
 .list-item-cta-passive p {
@@ -162,6 +180,10 @@ MAIN
   font-size: 0.8rem;
 
   transition: var(--project-transition);
+}
+
+.list-item-cta-passive:focus-visible p {
+  color: var(--rose-50);
 }
 
 .list-item-cta-passive:active p {
@@ -193,14 +215,23 @@ MAIN
   transition: var(--project-transition);
 }
 
-.list-item-cta-active svg {
-  width: 0.6rem;
-  height: 0.6rem;
+.list-item-cta-active button:focus-visible {
+  background-color: var(--main-green);
+  border-color: var(--main-green);
 }
 
 .list-item-cta-active button:active {
   scale: 0.95 !important;
   background-color: var(--rose-100);
+}
+
+.list-item-cta-active svg {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+.list-item-cta-active button:focus-visible svg path {
+  fill: var(--rose-50);
 }
 
 .list-item-cta-active button:active svg path {
@@ -336,6 +367,11 @@ ASIDE
   transition: var(--project-transition);
 }
 
+.order-item-cta:focus-visible {
+  border-color: var(--main-green);
+  scale: 1.1;
+}
+
 .order-item-cta:active {
   scale: 0.95 !important;
   border-color: var(--rose-500);
@@ -344,6 +380,10 @@ ASIDE
 .order-item-cta svg {
   height: 0.6rem;
   width: 0.6rem;
+}
+
+.order-item-cta:focus-visible svg path {
+  fill: var(--main-green);
 }
 
 .order-item-cta:active svg path {
@@ -413,6 +453,10 @@ ASIDE
   transition: var(--project-transition);
 }
 
+.cart-cta:focus-visible {
+  background-color: var(--main-green);
+}
+
 .cart-cta:active {
   scale: 0.95 !important;
   background-color: var(--alt-red);
@@ -433,6 +477,10 @@ CONFIRM MODAL
   z-index: 3;
 
   background-color: var(--rose-50);
+}
+
+.confirm-order-container:focus-visible {
+  outline-color: var(--main-green);
 }
 
 .confirm-order-container > img {
@@ -469,6 +517,10 @@ CONFIRM MODAL
   max-height: 15rem;
 
   overflow-y: scroll;
+}
+
+.confirm-order-list:focus-visible {
+  outline-color: var(--main-green);
 }
 
 .confirm-order-list::-webkit-scrollbar {
@@ -640,11 +692,16 @@ ADAPTIVE
 
 @media (hover: hover) {
   .list-item-cta-passive:hover {
+    background-color: var(--rose-50);
     border-color: var(--main-red);
   }
 
   .list-item-cta-passive:hover p {
     color: var(--main-red);
+  }
+
+  .list-item-cta-passive:hover svg path {
+    fill: var(--main-red);
   }
 
   .list-item-cta-active button:hover {

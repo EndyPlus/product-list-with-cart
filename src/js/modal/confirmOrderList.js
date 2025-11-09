@@ -15,6 +15,11 @@ const newOrderBtn = document.getElementById("new-order-btn");
 newOrderBtn.addEventListener("click", () => {
   resetState();
   hideModal();
+
+  const addToCartFirstBtn = document.getElementById("item-0-btn");
+  addToCartFirstBtn.focus();
+
+  window.scrollTo(0, 0);
 });
 
 function updateTotalPrice(data) {
